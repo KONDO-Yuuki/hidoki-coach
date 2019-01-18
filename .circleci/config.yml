@@ -2,7 +2,7 @@ job_base: &job_base
   working_directory: ~/repo
   docker:
     - image: circleci/node:8.9.4
-version: 2
+version: 2.1
 jobs:
   deploy:
     <<: *job_base
