@@ -40,7 +40,7 @@ export const checker: Handler = async (
 ) => {
   const message = generateMessage();
   const response = await send(
-    "", // ここにhogeを追加
+    process.env.CHECKER_SLACK_WEBHOOK,
     message
   );
   cb(null, response);

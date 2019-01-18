@@ -9,8 +9,11 @@ plugins:
 
 provider:
   name: aws
-
   runtime: nodejs8.10
+  stage: dev
+  profile: personal
+  environment:
+    CHECKER_SLACK_WEBHOOK: https://hooks.slack.com/services/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
 
 functions:
   checker:

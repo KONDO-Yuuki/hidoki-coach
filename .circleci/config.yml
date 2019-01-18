@@ -1,0 +1,40 @@
+job_base: &job_base
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.9.4
+version: 2
+jobs:
+  deploy:
+    <<: *job_base
+    steps:
+      - checkout
+      - run:
+          name: Display versions
+          command: |
+            sudo npm install --global yarn@1.5.1
+            node -v
+            npm -v
+            yarn --version
+      - run:
+          name: Install AWS cli
+          working_directory: /tmp
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install -y python-pip python-dev
+            pip install awscli awsebcli --upgrade --user
+      - run:
+          name: Run yarn install
+          command: |
+            yarn install
+      - run:
+          name: Deploy
+          command: |
+            yarn run sls deploy
+workflows:
+  version: 2
+  lambda-deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: /^.*release/
