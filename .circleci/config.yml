@@ -32,9 +32,9 @@ jobs:
             yarn run sls deploy
 workflows:
   version: 2
-  lambda-deploy:
+  deploy:
     jobs:
       - deploy:
           filters:
             branches:
-              only: /^.*release/
+              only: /master/
